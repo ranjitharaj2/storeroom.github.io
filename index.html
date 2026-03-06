@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>College Store Room Status</title>
+<style>
+body{
+font-family:Arial;
+text-align:center;
+background:#f2f2f2;
+margin-top:100px;
+}
+
+.box{
+background:white;
+padding:40px;
+border-radius:10px;
+display:inline-block;
+box-shadow:0 0 10px gray;
+}
+
+.open{
+color:green;
+font-size:30px;
+}
+
+.closed{
+color:red;
+font-size:30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h1>College Store Room</h1>
+<p id="status">Loading...</p>
+</div>
+
+<script>
+
+fetch("https://api.thingspeak.com/channels/3276103/fields/1/last.json")
+.then(response => response.json())
+.then(data => {
+
+if(data.field1 == 1){
+document.getElementById("status").innerHTML = "<span class='open'>OPEN</span>";
+}else{
+document.getElementById("status").innerHTML = "<span class='closed'>CLOSED</span>";
+}
+
+});
+
+</script>
+
+</body>
+</html>
